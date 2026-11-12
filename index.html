@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bethany Bible Baptist Church Novaliches | Mga Katotohanan Mula sa Salita ng Diyos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper-bg: #FAF7F2;
+      --card-bg: #FFFFFF;
+      --ink-primary: #1E293B;
+      --ink-secondary: #475569;
+      --accent-navy: #0F172A;
+      --accent-gold: #B45309;
+      --accent-gold-light: #FEF3C7;
+      --border-subtle: #E2D9C8;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--paper-bg);
+      color: var(--ink-primary);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-serif-tract {
+      font-family: 'Merriweather', Georgia, serif;
+    }
+
+    /* Subtle paper grain feel */
+    .tract-surface {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
+    }
+
+    /* Radiant Spirit / Light pulse animation */
+    @keyframes divineGlow {
+      0%, 100% { opacity: 0.78; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+
+    .divine-rays {
+      transform-origin: center;
+      animation: divineGlow 4.5s ease-in-out infinite;
+    }
+
+    /* Smooth panel transitions */
+    .panel-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    @media (hover: hover) {
+      .panel-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 32px -12px rgba(15, 23, 42, 0.14);
+      }
+    }
+
+    /* Print styling for physical gospel tract distribution */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .tract-surface {
+        box-shadow: none !important;
+        border: 1px solid #CBD5E1 !important;
+        break-inside: avoid;
+      }
+      #panelsGrid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+      }
+      .panel-item {
+        display: flex !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-amber-200 selection:text-slate-900">
+
+  <!-- Top Navigation & Church Header -->
+  <header class="w-full bg-slate-900 text-amber-50 border-b-4 border-amber-600 sticky top-0 z-30 shadow-md">
+    <div class="max-w-5xl mx-auto px-4 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <!-- Symbolic Dove / Light / Cross Emblem (No face) -->
+        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-500/15 border border-amber-400/40 flex items-center justify-center shrink-0">
+          <svg class="w-6 h-6 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v20M7 7h10" />
+            <circle cx="12" cy="7" r="4" stroke-opacity="0.35" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-[11px] sm:text-xs uppercase tracking-widest text-amber-300 font-semibold">
+            Mga Katotohanan Mula sa Salita ng Diyos
+          </p>
+          <h1 class="font-serif-tract text-base sm:text-xl font-bold text-white leading-snug">
+            Bethany Bible Baptist Church Novaliches
+          </h1>
+        </div>
+      </div>
+
+      <!-- Mode Switcher & Actions -->
+      <div class="no-print flex items-center gap-2 self-start sm:self-center pt-1 sm:pt-0">
+        <div class="inline-flex rounded-xl bg-slate-800 p-1 border border-slate-700" role="tablist" aria-label="Paraan ng Pagbasa">
+          <button
+            id="btnFullView"
+            type="button"
+            onclick="setViewMode('full')"
+            class="px-3 py-1.5 text-xs font-semibold rounded-lg transition bg-amber-600 text-white shadow-sm"
+          >
+            Lahat (4 Bahagi)
+          </button>
+          <button
+            id="btnStepView"
+            type="button"
+            onclick="setViewMode('step')"
+            class="px-3 py-1.5 text-xs font-semibold rounded-lg transition text-slate-300 hover:text-white"
+          >
+            Hakbang-hakbang
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="w-full max-w-5xl mx-auto px-3 sm:px-6 py-5 sm:py-8 flex-1">
+
+    <!-- Intro Banner -->
+    <section class="tract-surface rounded-2xl p-4 sm:p-6 mb-6 text-center relative overflow-hidden">
+      <div class="max-w-2xl mx-auto">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-amber-100 text-amber-900 mb-2">
+          Mabuting Balita ng Kaligtasan
+        </span>
+        <h2 class="font-serif-tract text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 leading-tight">
+          Saan Ka Patutungo Pagkatapos ng Buhay na Ito?
+        </h2>
+        <p class="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed">
+          Basahin nang may panalangin ang apat na mahahalagang katotohanan mula sa Banal na Kasulatan tungkol sa kalagayan ng tao at sa daang inihanda ng Diyos sa pamamagitan ni Jesu-Cristo.
+        </p>
+      </div>
+    </section>
+
+    <!-- Step Navigation Bar (Only visible in Step-by-Step mode) -->
+    <div id="stepControls" class="hidden no-print mb-5 tract-surface rounded-2xl p-3 sm:p-4 flex items-center justify-between gap-2">
+      <button
+        id="prevStepBtn"
+        type="button"
+        onclick="changeStep(-1)"
+        class="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 disabled:opacity-40 disabled:pointer-events-none text-slate-800 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        Nakaraan
+      </button>
+
+      <div class="flex flex-col items-center">
+        <span id="stepIndicatorText" class="text-xs sm:text-sm font-bold text-slate-800">Hakbang 1 ng 4</span>
+        <div class="flex gap-1.5 mt-1.5" id="stepDots">
+          <button type="button" onclick="goToStep(0)" aria-label="Hakbang 1" class="w-2.5 h-2.5 rounded-full bg-amber-600 transition"></button>
+          <button type="button" onclick="goToStep(1)" aria-label="Hakbang 2" class="w-2.5 h-2.5 rounded-full bg-slate-300 transition"></button>
+          <button type="button" onclick="goToStep(2)" aria-label="Hakbang 3" class="w-2.5 h-2.5 rounded-full bg-slate-300 transition"></button>
+          <button type="button" onclick="goToStep(3)" aria-label="Hakbang 4" class="w-2.5 h-2.5 rounded-full bg-slate-300 transition"></button>
+        </div>
+      </div>
+
+      <button
+        id="nextStepBtn"
+        type="button"
+        onclick="changeStep(1)"
+        class="px-3.5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 disabled:opacity-40 disabled:pointer-events-none text-white font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition shadow-sm"
+      >
+        Susunod
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- 4-Panel Gospel Tract Grid -->
+    <div id="panelsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+
+      <!-- PANEL 1: ANG PARAAN NG TAO (Human Effort Falls Short) -->
+      <article data-step="0" class="panel-item panel-card tract-surface rounded-2xl overflow-hidden flex flex-col justify-between">
+        <div>
+          <!-- Top Tag -->
+          <div class="bg-slate-800 text-white px-4 py-2.5 flex items-center justify-between">
+            <span class="text-xs font-bold tracking-wider uppercase text-amber-300">1. Ang Ating Sariling Paraan</span>
+            <span class="text-[11px] bg-slate-700 px-2 py-0.5 rounded-md text-slate-200">Kulang sa Diyos</span>
+          </div>
+
+          <!-- Clean Symbolic SVG Illustration: Human Attempts Falling Short Across Chasm -->
+          <div class="bg-gradient-to-b from-slate-100 to-amber-50/40 p-3 sm:p-4 border-b border-stone-200">
+            <svg viewBox="0 0 400 185" class="w-full h-auto max-h-48 mx-auto block" role="img" aria-label="Ilustrasyon ng sariling paraan ng tao na hindi umaabot sa Diyos">
+              <!-- Divine Light on Right (God's Spirit / Holiness - No Face) -->
+              <defs>
+                <radialGradient id="godGlow1" cx="85%" cy="22%" r="45%">
+                  <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.45" />
+                  <stop offset="60%" stop-color="#FCD34D" stop-opacity="0.15" />
+                  <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <rect x="0" y="0" width="400" height="185" rx="12" fill="#F8FAFC" />
+              <rect x="0" y="0" width="400" height="185" rx="12" fill="url(#godGlow1)" />
+
+              <!-- Sunburst rays representing God's Spirit / Glory -->
+              <g class="divine-rays" stroke="#D97706" stroke-width="1.5" stroke-opacity="0.45">
+                <line x1="340" y1="36" x2="295" y2="18" />
+                <line x1="340" y1="36" x2="290" y2="45" />
+                <line x1="340" y1="36" x2="305" y2="72" />
+                <line x1="340" y1="36" x2="335" y2="82" />
+                <line x1="340" y1="36" x2="368" y2="75" />
+              </g>
+              <circle cx="340" cy="36" r="18" fill="#FEF3C7" stroke="#D97706" stroke-width="2" />
+              <text x="340" y="40" text-anchor="middle" font-size="10" font-weight="800" fill="#92400E">DIYOS</text>
+
+              <!-- Left Cliff (TAO) -->
+              <path d="M0,105 L105,105 L122,185 L0,185 Z" fill="#334155" />
+              <text x="48" y="132" text-anchor="middle" font-size="11" font-weight="800" fill="#F8FAFC">TAO</text>
+
+              <!-- Right Cliff (DIYOS) -->
+              <path d="M295,105 L400,105 L400,185 L278,185 Z" fill="#334155" />
+              <text x="348" y="132" text-anchor="middle" font-size="11" font-weight="800" fill="#FDE68A">KALUWALHATIAN</text>
+
+              <!-- Chasm Label -->
+              <text x="200" y="172" text-anchor="middle" font-size="11" font-weight="800" letter-spacing="1.5" fill="#991B1B">BANGIN NG KASALANAN</text>
+
+              <!-- Person silhouette trying to reach across -->
+              <circle cx="88" cy="76" r="7" fill="#1E293B" />
+              <path d="M88,83 L88,105 M88,90 L106,84 M88,90 L76,97" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
+
+              <!-- Broken / Falling Short Stepping Stones of Human Effort -->
+              <g font-size="7.5" font-weight="700" text-anchor="middle">
+                <rect x="115" y="95" width="56" height="15" rx="3" fill="#E2E8F0" stroke="#64748B" />
+                <text x="143" y="105" fill="#1E293B">RELIHIYON</text>
+
+                <rect x="176" y="103" width="66" height="15" rx="3" fill="#E2E8F0" stroke="#64748B" transform="rotate(6 209 110)" />
+                <text x="209" y="113" fill="#1E293B" transform="rotate(6 209 110)">MABUTING GAWA</text>
+
+                <rect x="128" y="118" width="56" height="14" rx="3" fill="#CBD5E1" stroke="#64748B" transform="rotate(-5 156 125)" />
+                <text x="156" y="128" fill="#334155" transform="rotate(-5 156 125)">TRADISYON</text>
+
+                <rect x="192" y="127" width="54" height="14" rx="3" fill="#CBD5E1" stroke="#64748B" transform="rotate(14 219 134)" />
+                <text x="219" y="137" fill="#334155" transform="rotate(14 219 134)">MORALIDAD</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Headline & Verses -->
+          <div class="p-4 sm:p-5">
+            <h3 class="font-bold text-sm sm:text-base text-slate-900 uppercase leading-snug mb-3">
+              Kaibigan, ang paraan natin ay hindi tatanggapin ng Diyos dahil sa ating kasalanan.
+            </h3>
+
+            <div class="space-y-3 text-xs sm:text-sm text-slate-700">
+              <blockquote class="bg-amber-50/70 border-l-4 border-amber-600 p-3 rounded-r-xl">
+                <p class="font-serif-tract italic text-slate-800 leading-relaxed">
+                  “Tunay na walang matuwid sa lupa na gumagawa ng mabuti at hindi nagkakasala.”
+                </p>
+                <footer class="mt-1 font-bold text-amber-900 text-xs">— Eclesiastes 7:20</footer>
+              </blockquote>
+
+              <blockquote class="bg-slate-50 border-l-4 border-slate-500 p-3 rounded-r-xl">
+                <p class="font-serif-tract italic text-slate-800 leading-relaxed">
+                  “Sapagka't ang lahat ay nagkasala nga, at hindi nakaabot sa kaluwalhatian ng Diyos.”
+                </p>
+                <footer class="mt-1 font-bold text-slate-900 text-xs">— Roma 3:23</footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PANEL 2: ANG KALAGAYAN NG TAO NGAYON (Separation From God) -->
+      <article data-step="1" class="panel-item panel-card tract-surface rounded-2xl overflow-hidden flex flex-col justify-between">
+        <div>
+          <div class="bg-slate-800 text-white px-4 py-2.5 flex items-center justify-between">
+            <span class="text-xs font-bold tracking-wider uppercase text-amber-300">2. Ang Kalagayan Natin Ngayon</span>
+            <span class="text-[11px] bg-slate-700 px-2 py-0.5 rounded-md text-slate-200">Hiwalay sa Diyos</span>
+          </div>
+
+          <!-- Clean Symbolic SVG Illustration: Separation Between Man and God -->
+          <div class="bg-gradient-to-b from-slate-100 to-amber-50/40 p-3 sm:p-4 border-b border-stone-200">
+            <svg viewBox="0 0 400 185" class="w-full h-auto max-h-48 mx-auto block" role="img" aria-label="Ilustrasyon ng kasalanan na naghihiwalay sa tao at sa Diyos">
+              <defs>
+                <radialGradient id="godGlow2" cx="84%" cy="25%" r="48%">
+                  <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.5" />
+                  <stop offset="65%" stop-color="#FDE68A" stop-opacity="0.15" />
+                  <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <rect x="0" y="0" width="400" height="185" rx="12" fill="#F8FAFC" />
+              <rect x="0" y="0" width="400" height="185" rx="12" fill="url(#godGlow2)" />
+
+              <!-- Radiant Light representing God (No human face) -->
+              <g class="divine-rays" stroke="#D97706" stroke-width="1.6" stroke-opacity="0.5">
+                <line x1="336" y1="40" x2="285" y2="20" />
+                <line x1="336" y1="40" x2="280" y2="48" />
+                <line x1="336" y1="40" x2="295" y2="78" />
+                <line x1="336" y1="40" x2="336" y2="88" />
+                <line x1="336" y1="40" x2="375" y2="75" />
+              </g>
+              <circle cx="336" cy="40" r="20" fill="#FEF3C7" stroke="#D97706" stroke-width="2" />
+              <text x="336" y="44" text-anchor="middle" font-size="10.5" font-weight="800" fill="#92400E">DIYOS</text>
+
+              <!-- Left Cliff (TAO) -->
+              <path d="M0,105 L112,105 L132,185 L0,185 Z" fill="#334155" />
+              <text x="54" y="135" text-anchor="middle" font-size="11" font-weight="800" fill="#F8FAFC">TAO</text>
+
+              <!-- Right Cliff (DIYOS) -->
+              <path d="M288,105 L400,105 L400,185 L268,185 Z" fill="#334155" />
+              <text x="346" y="135" text-anchor="middle" font-size="11" font-weight="800" fill="#FDE68A">BANAL NA DIYOS</text>
+
+              <!-- Person standing on edge looking across -->
+              <circle cx="96" cy="76" r="7" fill="#1E293B" />
+              <path d="M96,83 L96,105 M96,91 L107,96 M96,91 L87,98" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
+
+              <!-- Separation barrier / arrows -->
+              <path d="M142,102 L258,102" stroke="#DC2626" stroke-width="2" stroke-dasharray="5,5" />
+              <rect x="148" y="88" width="104" height="24" rx="6" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5" />
+              <text x="200" y="103" text-anchor="middle" font-size="9.5" font-weight="800" fill="#991B1B">ANG KASALANAN</text>
+              <text x="200" y="132" text-anchor="middle" font-size="9" font-weight="700" fill="#475569">Ang naghihiwalay sa atin</text>
+              <text x="200" y="145" text-anchor="middle" font-size="9" font-weight="700" fill="#475569">sa harap ng Diyos</text>
+            </svg>
+          </div>
+
+          <div class="p-4 sm:p-5">
+            <h3 class="font-bold text-sm sm:text-base text-slate-900 uppercase leading-snug mb-3">
+              Kaibigan, tayo ay makasalanan sa harap ng Diyos.
+            </h3>
+
+            <blockquote class="bg-amber-50/70 border-l-4 border-amber-600 p-3.5 rounded-r-xl text-xs sm:text-sm text-slate-700">
+              <p class="font-serif-tract italic text-slate-800 leading-relaxed">
+                “...Pinaghihiwalay ng inyong mga kasamaan kayo at ang inyong Diyos, at ang inyong mga <strong class="text-red-800 not-italic">KASALANAN</strong> ang siyang nagpakubli ng Kaniyang mukha sa inyo, upang Siya'y huwag makinig.”
+              </p>
+              <footer class="mt-2 font-bold text-amber-900 text-xs">— Isaias 59:2</footer>
+            </blockquote>
+          </div>
+        </div>
+      </article>
+
+      <!-- PANEL 3: ANG RESULTA BUKAS (Eternal Consequence Without Christ) -->
+      <article data-step="2" class="panel-item panel-card tract-surface rounded-2xl overflow-hidden flex flex-col justify-between">
+        <div>
+          <div class="bg-slate-800 text-white px-4 py-2.5 flex items-center justify-between">
+            <span class="text-xs font-bold tracking-wider uppercase text-amber-300">3. Ang Kalagayan Bukas</span>
+            <span class="text-[11px] bg-red-900/80 border border-red-500/40 px-2 py-0.5 rounded-md text-red-100">Babala ng Kasulatan</span>
+          </div>
+
+          <!-- Clean Symbolic SVG Illustration: Consequence of Sin -->
+          <div class="bg-gradient-to-b from-slate-100 to-red-50/40 p-3 sm:p-4 border-b border-stone-200">
+            <svg viewBox="0 0 400 185" class="w-full h-auto max-h-48 mx-auto block" role="img" aria-label="Ilustrasyon ng kaparusahan ng kasalanan">
+              <rect x="0" y="0" width="400" height="185" rx="12" fill="#F8FAFC" />
+
+              <!-- God's Holiness above right (No face) -->
+              <circle cx="342" cy="36" r="18" fill="#FEF3C7" stroke="#D97706" stroke-width="2" />
+              <text x="342" y="40" text-anchor="middle" font-size="10" font-weight="800" fill="#92400E">DIYOS</text>
+
+              <!-- Left Cliff -->
+              <path d="M0,98 L102,98 L135,185 L0,185 Z" fill="#334155" />
+              <text x="48" y="128" text-anchor="middle" font-size="11" font-weight="800" fill="#F8FAFC">TAO</text>
+
+              <!-- Right Cliff -->
+              <path d="M298,98 L400,98 L400,185 L265,185 Z" fill="#334155" />
+
+              <!-- Person on edge -->
+              <circle cx="88" cy="70" r="7" fill="#1E293B" />
+              <path d="M88,77 L88,98 M88,85 L98,92 M88,85 L79,92" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
+
+              <!-- Stylized Flames at bottom of chasm -->
+              <path d="M135,185 Q148,150 160,172 Q174,138 188,170 Q202,135 216,170 Q230,140 244,172 Q256,152 265,185 Z" fill="#DC2626" fill-opacity="0.85" />
+              <path d="M148,185 Q162,160 175,176 Q192,152 206,176 Q222,154 236,176 Q248,162 256,185 Z" fill="#F59E0B" fill-opacity="0.9" />
+
+              <rect x="134" y="102" width="132" height="26" rx="6" fill="#991B1B" />
+              <text x="200" y="119" text-anchor="middle" font-size="10" font-weight="800" letter-spacing="1" fill="#FFFFFF">KAPARUSAHAN</text>
+            </svg>
+          </div>
+
+          <div class="p-4 sm:p-5">
+            <h3 class="font-bold text-sm sm:text-base text-slate-900 uppercase leading-snug mb-3">
+              Ang resulta ay walang hanggang kapahamakan at kaparusahan.
+            </h3>
+
+            <div class="space-y-3 text-xs sm:text-sm text-slate-700">
+              <blockquote class="bg-red-50/70 border-l-4 border-red-700 p-3 rounded-r-xl">
+                <p class="font-serif-tract italic text-slate-800 leading-relaxed">
+                  “Sapagka't ang kabayaran ng kasalanan ay kamatayan...”
+                </p>
+                <footer class="mt-1 font-bold text-red-900 text-xs">— Roma 6:23a</footer>
+              </blockquote>
+
+              <blockquote class="bg-slate-50 border-l-4 border-slate-500 p-3 rounded-r-xl">
+                <p class="font-serif-tract italic text-slate-800 leading-relaxed">
+                  “Datapuwa't sa mga... di-sumasampalataya... at lahat ng mga sinungaling, ang kanilang bahagi ay sa dagat-dagatang nagniningas sa apoy at asupre...”
+                </p>
+                <footer class="mt-1 font-bold text-slate-900 text-xs">— Pahayag 21:8</footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PANEL 4: ANG DAPAT MONG GAWIN NGAYON (Jesus Christ - Spirit/Cross Bridge, No Face) -->
+      <article data-step="3" class="panel-item panel-card tract-surface rounded-2xl overflow-hidden flex flex-col justify-between ring-2 ring-amber-500/50">
+        <div>
+          <div class="bg-amber-700 text-white px-4 py-2.5 flex items-center justify-between">
+            <span class="text-xs font-bold tracking-wider uppercase text-amber-100">4. Ang Dapat Mong Gawin Ngayon</span>
+            <span class="text-[11px] bg-amber-900/60 px-2 py-0.5 rounded-md text-amber-100">Ang Tanging Daan</span>
+          </div>
+
+          <!-- Clean Symbolic SVG Illustration: The Cross & Spirit Light Bridging to God (NO FACE) -->
+          <div class="bg-gradient-to-b from-amber-50 to-white p-3 sm:p-4 border-b border-stone-200">
+            <svg viewBox="0 0 400 185" class="w-full h-auto max-h-48 mx-auto block" role="img" aria-label="Ilustrasyon ng Krus ni Jesu-Cristo at liwanag ng Espiritu na tulay patungo sa Diyos">
+              <defs>
+                <radialGradient id="spiritLight" cx="50%" cy="35%" r="55%">
+                  <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.45" />
+                  <stop offset="55%" stop-color="#FDE68A" stop-opacity="0.2" />
+                  <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <rect x="0" y="0" width="400" height="185" rx="12" fill="#FFFBEB" />
+              <rect x="0" y="0" width="400" height="185" rx="12" fill="url(#spiritLight)" />
+
+              <!-- Radiant Spirit / Divine Light Beams around the Cross (No human face) -->
+              <g class="divine-rays" stroke="#D97706" stroke-width="1.6" stroke-opacity="0.45">
+                <line x1="200" y1="62" x2="145" y2="22" />
+                <line x1="200" y1="62" x2="200" y2="14" />
+                <line x1="200" y1="62" x2="255" y2="22" />
+                <line x1="200" y1="62" x2="132" y2="55" />
+                <line x1="200" y1="62" x2="268" y2="55" />
+              </g>
+
+              <!-- God's Presence Light on Right -->
+              <circle cx="344" cy="38" r="19" fill="#FEF3C7" stroke="#D97706" stroke-width="2" />
+              <text x="344" y="42" text-anchor="middle" font-size="10" font-weight="800" fill="#92400E">DIYOS</text>
+
+              <!-- Left Cliff -->
+              <path d="M0,104 L106,104 L126,185 L0,185 Z" fill="#334155" />
+              <text x="52" y="132" text-anchor="middle" font-size="11" font-weight="800" fill="#F8FAFC">TAO</text>
+
+              <!-- Right Cliff -->
+              <path d="M294,104 L400,104 L400,185 L274,185 Z" fill="#334155" />
+              <text x="347" y="129" text-anchor="middle" font-size="9.5" font-weight="800" fill="#FDE68A">KALIGTASAN</text>
+              <text x="347" y="141" text-anchor="middle" font-size="8.5" font-weight="700" fill="#FDE68A">SA PILING NG DIYOS</text>
+
+              <!-- The Cross Bridging the Chasm (Symbolic of Christ's Sacrifice & Spirit) -->
+              <!-- Horizontal Beam (Bridge) -->
+              <rect x="98" y="94" width="204" height="16" rx="3" fill="#92400E" stroke="#78350F" stroke-width="1.5" />
+              <!-- Vertical Beam -->
+              <rect x="190" y="34" width="20" height="128" rx="3" fill="#92400E" stroke="#78350F" stroke-width="1.5" />
+              <!-- Label on Bridge -->
+              <rect x="148" y="95" width="104" height="14" rx="3" fill="#FEF3C7" />
+              <text x="200" y="105" text-anchor="middle" font-size="9.5" font-weight="800" letter-spacing="0.8" fill="#78350F">JESU CRISTO</text>
+
+              <!-- Symbolic Dove / Spirit Light descending above Cross -->
+              <path d="M192,24 Q200,18 208,24 Q200,22 192,24 Z" fill="#D97706" />
+
+              <!-- Person crossing over the Cross bridge toward God -->
+              <circle cx="246" cy="68" r="6.5" fill="#1E293B" />
+              <path d="M246,75 L246,94 M246,81 L258,76 M246,81 L237,87 M246,94 L253,94" stroke="#1E293B" stroke-width="2.8" stroke-linecap="round" />
+
+              <text x="200" y="175" text-anchor="middle" font-size="9.5" font-weight="800" fill="#78350F">“AKO ANG DAAN, AT ANG KATOTOHANAN, AT ANG BUHAY” (JUAN 14:6)</text>
+            </svg>
+          </div>
+
+          <div class="p-4 sm:p-5">
+            <h3 class="font-bold text-sm sm:text-base text-slate-900 uppercase leading-snug mb-3">
+              Kilalanin mo na ikaw ay nagkasala sa Diyos at magsisi dahil sa iyong mga kasalanan. Talikuran mo ang kasalanan.
+            </h3>
+
+            <div class="space-y-3 text-xs sm:text-sm text-slate-700">
+              <blockquote class="bg-amber-50 border-l-4 border-amber-600 p-3 rounded-r-xl">
+                <p class="font-serif-tract italic text-slate-800 leading-relaxed">
+                  “Magsisi kayo... sa pangalan ni Jesu-Cristo sa kapatawaran ng mga kasalanan...”
+                </p>
+                <footer class="mt-1 font-bold text-amber-900 text-xs">— Mga Gawa 2:38</footer>
+              </blockquote>
+
+              <blockquote class="bg-slate-50 border-l-4 border-slate-600 p-3 rounded-r-xl">
+                <p class="font-serif-tract italic text-slate-800 leading-relaxed">
+                  “Magsiparito kayo ngayon, at tayo'y magkatuwiranan, sabi ng Panginoon: bagaman ang inyong mga kasalanan ay maging tila mapula, ay magiging mapuputi na parang niebe...”
+                </p>
+                <footer class="mt-1 font-bold text-slate-900 text-xs">— Isaias 1:18</footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Prayer of Repentance & Faith Section -->
+    <section class="tract-surface rounded-2xl p-5 sm:p-7 mt-6 sm:mt-8 border-t-4 border-amber-600">
+      <div class="max-w-3xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+          <h2 class="font-serif-tract text-lg sm:text-xl font-bold text-slate-900">
+            Panalangin ng Pagsisisi at Pagtanggap
+          </h2>
+          <span class="text-xs font-semibold text-amber-800 bg-amber-100 px-3 py-1 rounded-full self-start">
+            Roma 10:9–10, 13
+          </span>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-600 mb-3 leading-relaxed">
+          Kung nais mong magsisi sa iyong mga kasalanan at magtiwala kay Panginoong Jesu-Cristo bilang iyong tanging Tagapagligtas ngayon, maaari kang manalangin nang taimtim mula sa iyong puso:
+        </p>
+
+        <div class="bg-amber-50/80 border border-amber-200 rounded-xl p-4 sm:p-5 font-serif-tract italic text-sm sm:text-base text-slate-800 leading-relaxed">
+          “Panginoong Diyos, inaamin ko po na ako ay isang makasalanan at hindi karapat-dapat sa Iyong kaharian. Nagsisisi po ako sa aking mga kasalanan at tinatalikuran ko ang mga ito. Naniniwala po ako na si Jesu-Cristo ay namatay sa krus para sa aking mga kasalanan at muling nabuhay. Tinatanggap ko po Siya ngayon bilang aking Panginoon at tanging Tagapagligtas. Salamat po sa kapatawaran at buhay na walang hanggan. Sa pangalan ni Jesus, Amen.”
+        </div>
+
+        <!-- Interactive Decision & Share Bar -->
+        <div class="no-print mt-5 pt-4 border-t border-stone-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <button
+            id="decisionBtn"
+            type="button"
+            onclick="confirmDecision()"
+            class="px-4 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs sm:text-sm transition shadow-sm flex items-center justify-center gap-2"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            Nanalangin Ako Ngayon
+          </button>
+
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              onclick="shareTract()"
+              class="flex-1 sm:flex-initial px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+              Ibahagi
+            </button>
+
+            <button
+              type="button"
+              onclick="window.print()"
+              class="flex-1 sm:flex-initial px-4 py-3 rounded-xl bg-stone-200 hover:bg-stone-300 text-slate-800 font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+              I-print
+            </button>
+          </div>
+        </div>
+
+        <!-- Feedback Toast / Inline Confirmation -->
+        <div id="statusMessage" class="hidden mt-4 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm leading-relaxed"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Church Footer -->
+  <footer class="w-full bg-slate-900 text-slate-300 border-t border-slate-800 mt-8">
+    <div class="max-w-5xl mx-auto px-4 py-6 sm:py-8 text-center">
+      <p class="font-serif-tract text-base sm:text-lg font-bold text-white">
+        Bethany Bible Baptist Church Novaliches
+      </p>
+      <p class="text-xs sm:text-sm text-amber-300 mt-1">
+        Novaliches, Quezon City, Metro Manila
+      </p>
+      <p class="text-xs text-slate-400 max-w-xl mx-auto mt-3 leading-relaxed">
+        Malugod po namin kayong inaanyayahang dumalo sa aming mga gawain at pag-aaral ng Salita ng Diyos upang lumago sa pananampalataya kay Panginoong Jesu-Cristo.
+      </p>
+      <p class="text-[11px] text-slate-500 mt-4">
+        “Sapagka't gayon na lamang ang pagsinta ng Diyos sa sanglibutan, na ibinigay Niya ang Kaniyang bugtong na Anak, upang ang sinomang sa Kaniya'y sumampalataya ay huwag mapahamak, kundi magkaroon ng buhay na walang hanggan.” — Juan 3:16
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    let currentView = 'full';
+    let currentStep = 0;
+    const totalSteps = 4;
+
+    // Switch between Full 4-Panel View and Single Step-by-Step Mode
+    function setViewMode(mode) {
+      currentView = mode;
+      const btnFull = document.getElementById('btnFullView');
+      const btnStep = document.getElementById('btnStepView');
+      const stepControls = document.getElementById('stepControls');
+      const grid = document.getElementById('panelsGrid');
+      const panels = document.querySelectorAll('.panel-item');
+
+      if (mode === 'full') {
+        btnFull.className = 'px-3 py-1.5 text-xs font-semibold rounded-lg transition bg-amber-600 text-white shadow-sm';
+        btnStep.className = 'px-3 py-1.5 text-xs font-semibold rounded-lg transition text-slate-300 hover:text-white';
+        stepControls.classList.add('hidden');
+        grid.className = 'grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6';
+        panels.forEach((panel) => panel.classList.remove('hidden'));
+      } else {
+        btnStep.className = 'px-3 py-1.5 text-xs font-semibold rounded-lg transition bg-amber-600 text-white shadow-sm';
+        btnFull.className = 'px-3 py-1.5 text-xs font-semibold rounded-lg transition text-slate-300 hover:text-white';
+        stepControls.classList.remove('hidden');
+        grid.className = 'grid grid-cols-1 max-w-xl mx-auto gap-5';
+        renderStep();
+      }
+    }
+
+    function renderStep() {
+      const panels = document.querySelectorAll('.panel-item');
+      panels.forEach((panel, idx) => {
+        if (idx === currentStep) {
+          panel.classList.remove('hidden');
+        } else {
+          panel.classList.add('hidden');
+        }
+      });
+
+      document.getElementById('stepIndicatorText').textContent = `Hakbang ${currentStep + 1} ng ${totalSteps}`;
+      document.getElementById('prevStepBtn').disabled = currentStep === 0;
+      document.getElementById('nextStepBtn').disabled = currentStep === totalSteps - 1;
+
+      const dots = document.querySelectorAll('#stepDots button');
+      dots.forEach((dot, idx) => {
+        dot.className = idx === currentStep
+          ? 'w-3 h-3 rounded-full bg-amber-600 transition'
+          : 'w-2.5 h-2.5 rounded-full bg-slate-300 hover:bg-slate-400 transition';
+      });
+    }
+
+    function changeStep(delta) {
+      const next = currentStep + delta;
+      if (next >= 0 && next < totalSteps) {
+        currentStep = next;
+        renderStep();
+      }
+    }
+
+    function goToStep(stepIndex) {
+      currentStep = stepIndex;
+      renderStep();
+    }
+
+    // Touch swipe support for mobile users in Step-by-Step mode
+    let touchStartX = 0;
+    const gridContainer = document.getElementById('panelsGrid');
+
+    gridContainer.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    gridContainer.addEventListener('touchend', (e) => {
+      if (currentView !== 'step') return;
+      const touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 45) {
+        if (diff > 0) changeStep(1);
+        else changeStep(-1);
+      }
+    }, { passive: true });
+
+    // Keyboard navigation in Step-by-Step mode
+    document.addEventListener('keydown', (e) => {
+      if (currentView !== 'step') return;
+      if (e.key === 'ArrowRight') changeStep(1);
+      if (e.key === 'ArrowLeft') changeStep(-1);
+    });
+
+    // Show encouraging message when user prays
+    function confirmDecision() {
+      const msgBox = document.getElementById('statusMessage');
+      const btn = document.getElementById('decisionBtn');
+      btn.classList.remove('bg-amber-600', 'hover:bg-amber-700');
+      btn.classList.add('bg-emerald-700', 'hover:bg-emerald-800');
+      btn.innerHTML = '✓ Nagpapasalamat Kami sa Iyong Desisyon';
+
+      msgBox.innerHTML = `
+        <strong>Purihin ang Panginoon!</strong> Kung taimtim kang nanalangin at nagtiwala kay Jesu-Cristo, ipinapangako ng Salita ng Diyos: <em>“Ang sinomang tumatawag sa pangalan ng Panginoon ay maliligtas”</em> (Roma 10:13). Inaanyayahan ka naming makipag-ugnayan at dumalo sa <strong>Bethany Bible Baptist Church Novaliches</strong> upang matulungan ka sa iyong bagong buhay kay Cristo.
+      `;
+      msgBox.classList.remove('hidden');
+      msgBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Share tract text or URL
+    function shareTract() {
+      const shareText = "Mga Katotohanan Mula sa Salita ng Diyos — Bethany Bible Baptist Church Novaliches. Basahin ang Mabuting Balita ng Kaligtasan kay Jesu-Cristo.";
+      const msgBox = document.getElementById('statusMessage');
+
+      if (navigator.share) {
+        navigator.share({
+          title: 'Bethany Bible Baptist Church Novaliches - Gospel Tract',
+          text: shareText,
+          url: window.location.href
+        }).catch(() => {});
+      } else {
+        // Fallback copy to clipboard
+        const tempInput = document.createElement('textarea');
+        tempInput.value = `${shareText}\n${window.location.href}`;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        try {
+          document.execCommand('copy');
+          msgBox.innerHTML = '<strong>Nakopya na!</strong> Maaari mo nang i-paste at ibahagi ang mensaheng ito sa iyong pamilya at mga kaibigan.';
+          msgBox.classList.remove('hidden');
+        } catch (err) {
+          msgBox.innerHTML = 'Maaari mong ibahagi ang pahinang ito sa pamamagitan ng pagkopya ng link sa iyong browser.';
+          msgBox.classList.remove('hidden');
+        }
+        document.body.removeChild(tempInput);
+      }
+    }
+  </script>
+</body>
+</html>
